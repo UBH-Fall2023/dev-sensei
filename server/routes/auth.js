@@ -5,8 +5,6 @@ const {
     signup,
     signin,
     signout,
-    forgotPassword,
-    resetPassword,
     googleLogin,
     
 } = require("../controllers/auth");
@@ -15,8 +13,7 @@ const {
 const {
     userSignupValidator,
     userSigninValidator,
-    forgotPasswordValidator,
-    resetPasswordValidator
+
 
 } = require('../validator/auth');
 
@@ -25,10 +22,7 @@ const { runValidation } = require('../validator/index');
 router.post("/signup", userSignupValidator, signup);
 router.post("/signin", userSigninValidator,signin);
 router.get("/signout", signout);
-// forgot reset password
 
-router.put('/forgot-password', forgotPasswordValidator, runValidation, forgotPassword);
-router.put('/reset-password', resetPasswordValidator, runValidation, resetPassword);
 // google
 // router.post('/google-login', googleLogin);
 

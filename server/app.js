@@ -7,6 +7,7 @@ const cors = require('cors');
 
 require('dotenv').config();
 const authRoutes = require('./routes/auth');
+const ideaRoutes = require('./routes/idea');
 
 const { DATABASE } = require('./config/keys');
 
@@ -31,6 +32,7 @@ app.use(cors());
 
 // routes middleware
 app.use('/api', authRoutes);
+app.use('/api', ideaRoutes);
 
 
 const port = process.env.PORT || 8000;
