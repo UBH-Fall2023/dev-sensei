@@ -91,7 +91,7 @@ const Signup = () => {
             {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error ea
             voluptates sapiente! */}
             {/* A platform linking student, pros, tech firms, and schools, driving skills growth, mentorship, and networking in buffalo stack and startup landscape */}
-            We are building a developer productivity tool that helps developers with system design of complex system.
+            A developer productivity tool that helps developers with system design of complex system.
           </p>
           <div className="">
             <div className="flex items-center">

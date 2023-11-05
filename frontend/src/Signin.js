@@ -79,7 +79,7 @@ const Signin = () => {
           <p className="mb-3 text-gray-200">
             {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error ea
             voluptates sapiente! */}
-            We are building a developer productivity tool that helps developers with system design of complex system.
+            A developer productivity tool that helps developers with system design of complex system.
           </p>
           <div className="">
             <div className="flex items-center">
