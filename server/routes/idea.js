@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
+const { requireSignin, isAuth, isAdmin, signout, read} = require("../controllers/auth");
 const { userById } = require("../controllers/auth");
 const {
     create,
@@ -19,10 +19,11 @@ router.post(
 );
 router.get(
     "/ideas/:userId",
-    requireSignin,
-    isAuth,
-    listIdeas
+    // requireSignin,
+    // isAuth,
+    read
 );
+
 
 router.param("userId", userById);
 
