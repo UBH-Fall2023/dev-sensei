@@ -25,11 +25,11 @@ def diagram():
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo-16k",
         messages=[
-            {"role": "user", "content": prefix+prompt}
+            {"role": "user", "content": prefix2+prompt}
         ]
     )
     plan_json = response['choices'][0]['message']['content']
-
+    print(plan_json)
     return jsonify(plan_json)
 
 @app.route('/design',methods=['POST'])

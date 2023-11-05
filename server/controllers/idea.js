@@ -22,15 +22,23 @@ exports.create = async (req, res) => {
         const prefix = "";
         console.log(prompt);
 
-        const apiResponse = await axios.post('http://127.0.0.1:5000/design', {
-            "prompt" :data
-        }, { headers: {},});
+        // const apiResponse = await axios.post('http://127.0.0.1:5000/design', {
+        //     "prompt" :data
+        // }, { headers: {},});
+        // req.body.idea.response = JSON.stringify(apiResponse.data);
+        // const apiResponse2 =await  axios.post('http://127.0.0.1:5000/diagram', {
+        //     "diagram" :data
+        // }, { headers: {},});
+        // console.log(apiResponse2);
+        // // const plan_json = apiResponse.data.choices[0].message.content;
+        // req.body.idea.diagram = JSON.stringify(apiResponse2.data);
+
+        const [apiResponse, apiResponse2] = await Promise.all([
+            axios.post('http://127.0.0.1:5000/design', { "prompt" :data }, { headers: {} }),
+            axios.post('http://127.0.0.1:5000/diagram', { "diagram" :data }, { headers: {} })
+        ]);
+
         req.body.idea.response = JSON.stringify(apiResponse.data);
-        const apiResponse2 =await  axios.post('http://127.0.0.1:5000/diagram', {
-            "diagram" :data
-        }, { headers: {},});
-        console.log(apiResponse2);
-        // const plan_json = apiResponse.data.choices[0].message.content;
         req.body.idea.diagram = JSON.stringify(apiResponse2.data);
         const idea = new Idea(req.body.idea);
         const savedIdea = await idea.save();
