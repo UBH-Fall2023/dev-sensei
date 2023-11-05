@@ -43,7 +43,7 @@ def diagram():
         ]
     )
     plan_json = json.loads(response['choices'][0]['message']['content'])
-    base64_str = render(plan_json)
+    base64_str = render(plan_json['design'])
     out = f"\{'design':{base64_str}\}"
     print(plan_json)
     
