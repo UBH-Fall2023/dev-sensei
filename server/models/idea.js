@@ -4,11 +4,12 @@ const { ObjectId } = mongoose.Schema;
 
 const IdeaSchema = new mongoose.Schema(
     {
-        name: String,
-        description: String,
-        response: String,
-        created: Date,
-        user: { type: ObjectId, ref: "User" }
+            name: String,
+            description: String,
+            response: String,
+            diagram:String,
+            created: Date,
+            user: { type: ObjectId, ref: "User" }
     },
     { timestamps: true }
 );
