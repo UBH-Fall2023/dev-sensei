@@ -17,6 +17,12 @@ router.post(
     isAuth,
     create
 );
+router.get(
+    "/ideas/:userId",
+    requireSignin,
+    isAuth,
+    listIdeas
+);
 
 router.param("userId", userById);
 
