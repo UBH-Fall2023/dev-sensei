@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { TbSquareRoundedArrowRightFilled } from "react-icons/tb";
 import { useNavigate } from "react-router";
 
-const AddText = ({ setIsNew }) => {
+const AddText = ({ setIsNew, setIsFetching }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     projectName: "",
@@ -48,12 +48,19 @@ const AddText = ({ setIsNew }) => {
         },
       })
       .then((response) => {
+        console.log("inside add text");
+        // localStorage.setItem("isFetching", true);
+        // localStorage.setItem("ideaCount", localStorage.getItem("ideaCount")?localStorage.getItem("ideaCount")+1:1);
         setIsNew(false);
+        setIsFetching(false);
+        // setIsFetching(true);
         // window.location.reload();
       })
       .catch((error) => {
         alert(error);
       });
+      setIsNew(false);
+      setIsFetching(true);
   };
 
   return !isLoading ? (

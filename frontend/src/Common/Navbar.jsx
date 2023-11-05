@@ -6,6 +6,7 @@ const Navbar = () => {
 
     const logoutHandler = () => {
         localStorage.removeItem('user');
+        localStorage.removeItem("isFetching");
         navigate("/");
     };
 

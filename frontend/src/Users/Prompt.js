@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Flow from "./MermaidFlow";
 
 const Prompt = ({ id }) => {
   const [prompt, setPrompt] = useState([]);
+  const [isFlowShown, setIsFlowShown] = useState(false);
   // const [position, setPosition] = useState({
   //   step_number: "",
   //   positions: [{
@@ -100,7 +102,7 @@ const Prompt = ({ id }) => {
 
   return (
     <div className="h-full overflow-hidden pl-10">
-      <main
+      {!isFlowShown ? <main
         id="dashboard-main"
         className="h-[calc(100vh-10rem)] overflow-auto px-4 py-10"
       >
@@ -119,26 +121,26 @@ const Prompt = ({ id }) => {
           {/* <div className="h-56 w-full rounded-xl bg-white p-10 shadow-md"></div> */}
           {prompt.map((item, index) => (
             <div key={index} className="h-fit w-full rounded-xl bg-white p-10 shadow-md flex flex-col gap-4">
-              <div className="flex flex-row gap-40">
+              {item.component && <div className="flex flex-row gap-40">
                 <h1 className="w-20 font-bold">Component</h1>
                 <p className="font-semibold">{item.component}</p>
-              </div>
-              <div className="flex flex-row gap-40">
+              </div>}
+              {item.technology && <div className="flex flex-row gap-40">
                 <h1 className="w-20 font-bold">Technology</h1>
                 <ul>
                   {item.technology.map((task, index) => (
                     <li key={index}>{task}</li>
                   ))}
                 </ul>
-              </div>
-              <div className="flex flex-row gap-40">
+              </div>}
+              {item.justifications && <div className="flex flex-row gap-40">
                 <h1 className="w-20 font-bold">Justifications</h1>
                 <ul>
                   {item.justifications.map((task, index) => (
                     <li key={index}>{task}</li>
                   ))}
                 </ul>
-              </div>
+              </div>}
                 {/* <div className="flex flex-row justify-between w-full">
                   <div className="flex flex-col gap-2">
                     {item.team_positions.map((pos, index) => (
@@ -183,10 +185,14 @@ const Prompt = ({ id }) => {
                 <div className="flex flex-col gap-2">
                   {item.resources.map((rsr, index) => (
                     <div key={index} className="flex gap-2">
-                      <p>{rsr.split(':')[0]}:</p>
                       <p>
-                        <a href={`${rsr.split(':')[1]}`} target="_blank" rel="noreferrer">{rsr.split(':')[1]}</a>
+                        <a href={rsr} target="_blank" rel="noreferrer">{rsr}</a>
                       </p>
+                      {/* <p>{rsr.split(':')[0]}:</p> */}
+                      {/* <p> */}
+                        {/* <a href={`${rsr.split(':')[1]}`} target="_blank" rel="noreferrer">{rsr.split(':')[1]}</a>
+                         */}
+                      {/* </p> */}
                     {/* // <div key={index} className="flex flex-row"> */}
                       {/* <div className="flex flex-row gap-2"> */}
                         {/* <p className="w-40">Organization:</p> */}
@@ -203,7 +209,8 @@ const Prompt = ({ id }) => {
             </div>
           ))}
         </div>
-      </main>
+      </main>:
+      <Flow />}
     </div>
   );
 };

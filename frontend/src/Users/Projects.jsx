@@ -4,17 +4,18 @@ import AddText from "./AddText";
 import Prompt from "./Prompt";
 import { useNavigate } from "react-router";
 
-const Projects = ({ setIsNew, setIsFetching }) => {
+const Projects = ({ isNew, setIsNew, setIsFetching }) => {
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [toggleProject, setToggleProject] = useState("");
   const [showdetails, setShowdetails] = useState(false);
   const [id, setId] = useState("");
-  const numberOfProjects = projects.length;
   //   const navigate = useNavigate();
+  console.log("projects");
 
   const toggleAddProjectHandler = () => {
     setToggleProject(true);
+    setIsNew(true);
   };
 
   const showProjectHandler = (id) => {
@@ -42,27 +43,20 @@ const Projects = ({ setIsNew, setIsFetching }) => {
         },
       })
       .then((response) => {
-        // console.log(JSON.parse(JSON.stringify(response.data)));
-        console.log(response.data.history.length);
-        setIsFetching(true);
-        localStorage.setItem("isFetching", true);
         setProjects(response.data.history);
         if(response.data.history.length > 0) {
           setToggleProject(false);
           setIsNew(false);
-          if(response.data.history.length > numberOfProjects) {
-            setIsFetching(false);
-          }
         }
       })
       .catch((error) => {
         console.log("projects", error);
         // alert(error);
       });
-  }, []);
+  }, [setIsNew, navigate]);
 
   return !showdetails ? (
-    !toggleProject ? (
+    !isNew ? (
       <div className=" overflow-y-auto">
         <div className="p-12">
           <div className="flex flex-row w-full justify-between items-center">
@@ -107,7 +101,7 @@ const Projects = ({ setIsNew, setIsFetching }) => {
         </div>
       </div>
     ) : (
-      <AddText setIsNew={setIsNew} />
+      <AddText setIsNew={setIsNew} setIsFetching={setIsFetching} />
     )
   ) : (
     <Prompt id={id} />
