@@ -77,7 +77,7 @@ const Signup = () => {
   return (
     <form className="mx-auto flex h-screen max-w-lg flex-col md:max-w-none md:flex-row md:pr-10">
       <div className="max-w-md rounded-3xl bg-gradient-to-t from-blue-700 via-blue-700 to-blue-600 px-4 py-10 text-white sm:px-10 md:m-6 md:mr-8">
-        <p className="mb-20 font-bold tracking-wider">IGNITER</p>
+        <p className="mb-20 font-bold tracking-wider">DevSensei</p>
         <p className="mb-4 text-3xl font-bold md:text-4xl md:leading-snug">
           Start your <br />
           journey with us
@@ -90,7 +90,8 @@ const Signup = () => {
           <p className="mb-3 text-gray-200">
             {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error ea
             voluptates sapiente! */}
-            A platform linking student, pros, tech firms, and schools, driving skills growth, mentorship, and networking in buffalo stack and startup landscape
+            {/* A platform linking student, pros, tech firms, and schools, driving skills growth, mentorship, and networking in buffalo stack and startup landscape */}
+            We are building a developer productivity tool that helps developers with system design of complex system.
           </p>
           <div className="">
             <div className="flex items-center">
