@@ -28,7 +28,7 @@ def render(graph):
     base64_string = base64_bytes.decode("ascii")
     img = io.BytesIO(requests.get('https://mermaid.ink/img/' + base64_string).content)
     encoded_string = base64.b64encode(img.getvalue())
-    return encoded_string
+    return encoded_string.decode()
 
 @app.route('/diagram',methods=['POST'])
 def diagram():
