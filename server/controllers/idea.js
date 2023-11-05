@@ -27,29 +27,19 @@ exports.create = async (req, res) => {
 
         try {
             const data = req.body.idea.description; // Assuming you have JSON data in the request body
-            const prompt = "";
+            const prompt = "prompt";
             const prefix = "";
             console.log(prompt);
 
-            // const apiResponse = await axios.post('https://api.openai.com/v1/chat/completions', {
-            //     model: 'gpt-3.5-turbo-16k',
-            //     messages: [
-            //         { role: 'user', content: prefix + prompt },
-            //     ],
-            // }, {
-            //     headers: {
-            //         'Authorization': 'Bearer YOUR_API_KEY', // Replace with your OpenAI API key
-            //         'Content-Type': 'application/json',
-            //     },
-            // });
+            const apiResponse = await axios.post('http://127.0.0.1:5000/design', {
+            "prompt" :data
+            }, { headers: {},});
 
             // const plan_json = apiResponse.data.choices[0].message.content;
-            // console.log(plan_json);
-
-            const updatedIdea = savedIdea.updateOne( { response: " hello baby"});
-            console.log("updatedIdea"+ updatedIdea);
-            return res.status(200).json({});
-
+            req.body.idea.response = JSON.stringify(apiResponse.data);
+            const idea = new Idea(req.body.idea);
+            const savedIdea = await idea.save();
+            return res.status(200).json(savedIdea);
         } catch (error) {
             console.error(error);
             res.status(500).send('Error'); // Handle errors appropriately
