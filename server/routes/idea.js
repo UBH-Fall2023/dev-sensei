@@ -12,12 +12,7 @@ const {
 const {ideaById} = require("../controllers/idea");
 
 
-router.post(
-    "/idea/create/:userId",
-    requireSignin,
-    isAuth,
-    create
-);
+router.post("/idea/create/:userId", create);
 router.get("/ideas/:userId", read);
 router.get("/idea", ideaById);
 
