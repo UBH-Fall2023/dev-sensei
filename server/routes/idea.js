@@ -5,10 +5,11 @@ const { requireSignin, isAuth, isAdmin, signout, read} = require("../controllers
 const { userById } = require("../controllers/auth");
 const {
     create,
-    listIdeas,
+
     orderById,
 
 } = require("../controllers/Idea");
+const {ideaById} = require("../controllers/idea");
 
 
 router.post(
@@ -17,12 +18,8 @@ router.post(
     isAuth,
     create
 );
-router.get(
-    "/ideas/:userId",
-    // requireSignin,
-    // isAuth,
-    read
-);
+router.get("/ideas/:userId", read);
+router.get("/idea", ideaById);
 
 
 router.param("userId", userById);
