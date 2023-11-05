@@ -1,6 +1,11 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "scripts": {
+    "build": "npm i",
+    "start": "NODE_ENV=production node app.js ",
+    "dev": "NODE_ENV=staging nodemon app.js ",
+  },
   "dependencies": {
     "axios": "^1.6.0",
     "body-parser": "^1.19.0",
