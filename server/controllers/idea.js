@@ -75,10 +75,12 @@ exports.ideaById = (req, res) => {
 
         // Parse the "response" field from a JSON string to a JavaScript object
         const responseObj = JSON.parse(idea.response);
+        const diagram = JSON.parse(idea.diagram);
 
         // Create a new object with only the "response" field
         const responseData = {
-            response: responseObj
+            response: responseObj,
+            diagram: diagram
         };
 
         return res.json(responseData);

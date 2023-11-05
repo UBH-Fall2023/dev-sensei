@@ -45,8 +45,6 @@ def bplan():
         ]
     )
     plan_json = response['choices'][0]['message']['content']
-    
-
     print(plan_json)
     response = Response(status=200, response=plan_json)
     return plan_json
