@@ -28,6 +28,16 @@ exports.userById = (req, res, next, id) => {
 };
 
 
+exports.read = (req, res) => {
+    req.profile.hashed_password = undefined;
+    req.profile.salt = undefined;
+    req.profile.history = req.profile.history.map((item) => {
+        item.response = JSON.parse(item.response);
+        return item;
+    });
+    return res.json(req.profile);
+};
+
 exports.signup = async(req, res) => {
     // console.log("req.body", req.body);
     const user = new User(req.body);

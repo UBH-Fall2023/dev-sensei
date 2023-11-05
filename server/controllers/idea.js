@@ -39,13 +39,11 @@ exports.create = async (req, res) => {
             response: JSON.stringify(apiResponse.data),
             created: savedIdea.created
         });
-        await User.findOneAndUpdate({ _id: req.profile._id }, { $push: { history: history } }, { new: true }, (error, data) => {
-            if (error) {
-                return res.status(400).json({
-                    error: 'Could not update user purchase history'
-                });
-            }
-        });
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: req.profile._id },
+            { $push: { history: history } },
+            { new: true }
+        );
         return res.status(200).json(apiResponse.data);
     }
 
@@ -71,40 +69,6 @@ exports.listIdeas = async (req, res) => {
             error: errorHandler(err)
         });
     }
-};
-
-
-exports.addIdeaToUserHistory = (req, res, next) => {
-    let history = [];
-    history.push({
-        _id: item._id,
-        name: item.name,
-        description: item.description,
-        response: item.category,
-        quantity: item.count,
-        transaction_id: req.body.order.transaction_id,
-        amount: req.body.order.amount
-    });
-    // req.body.order.products.forEach(item => {
-    //     history.push({
-    //         _id: item._id,
-    //         name: item.name,
-    //         description: item.description,
-    //         category: item.category,
-    //         quantity: item.count,
-    //         transaction_id: req.body.order.transaction_id,
-    //         amount: req.body.order.amount
-    //     });
-    // });
-
-    User.findOneAndUpdate({ _id: req.profile._id }, { $push: { history: history } }, { new: true }, (error, data) => {
-        if (error) {
-            return res.status(400).json({
-                error: 'Could not update user purchase history'
-            });
-        }
-        next();
-    });
 };
 
 exports.purchaseHistory = (req, res) => {
