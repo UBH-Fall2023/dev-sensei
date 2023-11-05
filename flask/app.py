@@ -42,6 +42,7 @@ def diagram():
             {"role": "user", "content": prefix2+prompt}
         ]
     )
+    print(response['choices'][0]['message']['content'])
     plan_json = json.loads(response['choices'][0]['message']['content'])
     base64_str = render(plan_json['design'])
     out = {'design':base64_str}
