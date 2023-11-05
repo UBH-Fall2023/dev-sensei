@@ -58,6 +58,8 @@ const AddText = ({ setIsNew, setIsFetching }) => {
       })
       .catch((error) => {
         alert(error);
+        setIsNew(true);
+        setIsFetching(false);
       });
       setIsNew(false);
       setIsFetching(true);

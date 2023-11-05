@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import Flow from "./MermaidFlow";
 
 const Prompt = ({ id }) => {
-  const [prompt, setPrompt] = useState([]);
+  const [prompt, setPrompt] = useState(null);
   const [isFlowShown, setIsFlowShown] = useState(false);
+  // const [flow, setFlow] = useState("");
   // const [position, setPosition] = useState({
   //   step_number: "",
   //   positions: [{
@@ -89,11 +90,13 @@ const Prompt = ({ id }) => {
       })
       .then((response) => {
         console.log(response.data.response.components);
-        const obj = response.data.response.components;
+        const obj = response.data;
         console.log(obj);
         console.log(typeof((obj)));
         console.log(obj);
         setPrompt(obj);
+        console.log(response.data.diagram.design, typeof(response.data.diagram.design));
+        // setFlow(response.data.diagram.design);
       })
       .catch((error) => {
         alert(error);
@@ -104,7 +107,7 @@ const Prompt = ({ id }) => {
     <div className="h-full overflow-hidden pl-10">
       {!isFlowShown ? <main
         id="dashboard-main"
-        className="h-[calc(100vh-10rem)] overflow-auto px-4 py-10"
+        className="h-[calc(100vh-5rem)] overflow-auto px-4 py-10"
       >
         {/* <!-- Put your content inside of the <main/> tag --> */}
         <div className="flex flex-row justify-between w-full">
@@ -112,14 +115,15 @@ const Prompt = ({ id }) => {
         <button className="underline text-blue-600" onClick={() => window.location.reload()}>Go back</button>
         </div>
         <p className="mb-6 text-gray-600">
-          Steps to start your roadmap
+          {/* Steps to start your roadmap */}
+          {prompt && prompt.response.summary}
         </p>
         <div className="flex flex-wrap gap-x-4 gap-y-8">
           {/* <div className="h-56 w-72 rounded-xl bg-white p-10 shadow-md"></div>
           <div className="h-56 w-72 rounded-xl bg-white p-10 shadow-md"></div> */}
           {/* <div className="h-56 w-full rounded-xl bg-white p-10 shadow-md"></div> */}
           {/* <div className="h-56 w-full rounded-xl bg-white p-10 shadow-md"></div> */}
-          {prompt.map((item, index) => (
+          {prompt && prompt.response.components.map((item, index) => (
             <div key={index} className="h-fit w-full rounded-xl bg-white p-10 shadow-md flex flex-col gap-4">
               {item.component && <div className="flex flex-row gap-40">
                 <h1 className="w-20 font-bold">Component</h1>
@@ -127,7 +131,7 @@ const Prompt = ({ id }) => {
               </div>}
               {item.technology && <div className="flex flex-row gap-40">
                 <h1 className="w-20 font-bold">Technology</h1>
-                <ul>
+                <ul className=" list-disc">
                   {item.technology.map((task, index) => (
                     <li key={index}>{task}</li>
                   ))}
@@ -135,7 +139,7 @@ const Prompt = ({ id }) => {
               </div>}
               {item.justifications && <div className="flex flex-row gap-40">
                 <h1 className="w-20 font-bold">Justifications</h1>
-                <ul>
+                <ul className=" list-disc">
                   {item.justifications.map((task, index) => (
                     <li key={index}>{task}</li>
                   ))}
@@ -183,11 +187,10 @@ const Prompt = ({ id }) => {
               {item.resources && <div className="flex flex-row gap-40">
                 <h1 className="w-20 font-bold">Resources</h1>
                 <div className="flex flex-col gap-2">
+                  <ul className=" list-disc">
                   {item.resources.map((rsr, index) => (
-                    <div key={index} className="flex gap-2">
-                      <p>
+                    <li key={index}>
                         <a href={rsr} target="_blank" rel="noreferrer">{rsr}</a>
-                      </p>
                       {/* <p>{rsr.split(':')[0]}:</p> */}
                       {/* <p> */}
                         {/* <a href={`${rsr.split(':')[1]}`} target="_blank" rel="noreferrer">{rsr.split(':')[1]}</a>
@@ -202,15 +205,17 @@ const Prompt = ({ id }) => {
                         {/* <h1 className="w-40">Website:</h1> */}
                         {/* <p>{rsr.website}</p> */}
                       {/* </div> */}
-                    </div>
+                    </li>
                   ))}
+                  </ul>
                 </div>
               </div>}
             </div>
           ))}
         </div>
+        <button className="text-white bg-blue-600 rounded-md px-4 py-2 mt-4" onClick={() => setIsFlowShown(true)}>View Flow</button>
       </main>:
-      <Flow />}
+      <Flow flow={prompt.diagram.design} setIsFlowShown={setIsFlowShown} />}
     </div>
   );
 };
