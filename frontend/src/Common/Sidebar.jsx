@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 
-const Sidebar = () => {
-  const [tab, setTab] = useState("dashboard");
+const Sidebar = ({ tab, setTab }) => {
+  // const [tab, setTab] = useState("dashboard");
+  const user = localStorage.getItem("user");
+  let fullName;
+  if (user) {
+    fullName = JSON.parse(user).user.name;
+  }
 
   return (
     <aside className="fixed z-50 md:relative">
@@ -30,13 +35,13 @@ const Sidebar = () => {
         aria-label="Sidebar Navigation"
         className="peer-checked:w-64 left-0 z-10 flex h-screen w-0 flex-col overflow-hidden bg-gray-700 text-white transition-all md:h-screen md:w-64 lg:w-72"
       >
-        <div className="bg-slate-100 mt-5 py-4 pl-10 md:mt-10">
-          <span className="">
+        <div className=" mt-5 py-4 md:mt-10">
+          <span className=" rounded-md">
             {/* <span className="mr-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 align-bottom text-2xl font-bold">
                 U
               </span>
               <span className="text-xl">rbane</span> */}
-            <img src="/Logo.png" alt="" className="w-40 h-20 object-cover" />
+            <img src="/Logo2.png" alt="" className="w-full object-fill border rounded-full" />
           </span>
         </div>
         <ul className="mt-8 space-y-3 md:mt-20">
@@ -117,6 +122,46 @@ const Sidebar = () => {
               )}
             </button>
           </li> */}
+
+          <li className="relative">
+            <button
+              className="focus:bg-slate-600 hover:bg-slate-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none"
+              onClick={() => setTab("learnings")}
+            >
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                  />
+                </svg>
+              </span>
+              <span className="">Learnings</span>
+              {tab === "learnings" && (
+                <svg
+                  className="text-slate-200 absolute -right-1 -top-1/2 z-10 hidden h-32 w-8 md:block"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="399.349 57.696 100.163 402.081"
+                  width="1em"
+                  height="4em"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M 499.289 57.696 C 499.289 171.989 399.349 196.304 399.349 257.333 C 399.349 322.485 499.512 354.485 499.512 458.767 C 499.512 483.155 499.289 57.696 499.289 57.696 Z"
+                  />
+                </svg>
+              )}
+            </button>
+          </li>
+
           {/* Profile tab */}
           <li className="relative">
             <button
@@ -279,7 +324,7 @@ const Sidebar = () => {
             />
           </div>
           <div className="ml-3">
-            <p className="font-medium">John Doe</p>
+            <p className="font-medium">{fullName.toUpperCase()}</p>
             {/* <p className="text-sm text-gray-300">Kyiv, Ukraine</p> */}
           </div>
         </div>

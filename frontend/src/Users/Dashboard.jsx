@@ -3,9 +3,11 @@ import AddText from "./AddText";
 import Projects from "./Projects";
 import Sidebar from "../Common/Sidebar";
 import Navbar from "../Common/Navbar";
+import Profile from "./Profile";
+import Learning from "./Learning";
 
 const Dashboard = () => {
-    const [tab] = useState("dashboard");
+    const [tab, setTab] = useState("dashboard");
     const [isNew, setIsNew] = useState(true);
     const [isFetching, setIsFetching] = useState(false);
     // const [ideaCount, setIdeaCount] = useState(localStorage.getItem("ideaCount")?localStorage.getItem("ideaCount"):0);
@@ -19,7 +21,7 @@ const Dashboard = () => {
   return (
     <div className="bg-slate-200 flex h-screen">
       {/* <!-- /Sidebar --> */}
-      <Sidebar />
+      <Sidebar setTab={setTab} tab={tab} />
 
       <div className="flex w-full flex-col">
         {/* <!-- Navbar --> */}
@@ -31,7 +33,8 @@ const Dashboard = () => {
         {tab==="dashboard" && <Projects isNew={isNew} setIsNew={setIsNew} setIsFetching={setIsFetching} />}
         {/* <!-- /Main --> */}
         {/* {isNew && tab==="dashboard" && <AddText setIsNew={setIsNew} />} */}
-        {/* {tab==="profile" && <EmployeeProfile />} */}
+        {tab==="profile" && <Profile />}
+        {tab==="learnings" && <Learning />}
         {/* {tab==="jobPostings" && <JobPostings />} */}
       </div>
     </div>

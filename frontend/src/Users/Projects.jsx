@@ -94,7 +94,7 @@ const Projects = ({ isNew, setIsNew, setIsFetching }) => {
                   </p>
                   <p className="overflow-hidden pr-7 text-sm">{item.description}</p>
                 </div>
-                <button className="w-30 h-10 bg-indigo-600 text-white px-2 py-2 flex-[1] items-center text-center">Open Plan</button>
+                <button className="w-30 h-10 bg-indigo-600 text-white px-2 py-2 flex-[1] items-center text-center">Open Flow</button>
               </div>
             ))}
           </div>
