@@ -39,6 +39,7 @@ exports.create = async (req, res) => {
         ]);
 
         req.body.idea.response = JSON.stringify(apiResponse.data);
+        apiResponse2.data['design'] =apiResponse2.data['design'].replace(/\\n/g, '\\u000a');
         req.body.idea.diagram = JSON.stringify(apiResponse2.data);
         const idea = new Idea(req.body.idea);
         const savedIdea = await idea.save();
