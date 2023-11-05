@@ -10,9 +10,27 @@ app = Flask(__name__)
 # json="Give an answer in json format. The json string should have a key Actionable_Steps with value as json object list. Each object in the list is one step and include the step number, category, tasks, team positions , resources."
 # prefix= "Act like a venture coach and mentor and give me actionable steps with points to build my start from scratch which is "
 # suffix= " Give an answer in json format and also give me Resources in the Niagara Falls and Buffalo Area. I also need different positions I would need in my team for each step."
-prefix = "Provide system design with all the techstack, tools and technologies required and why it is required in brief. also provide reason in brief for your choice making sure the system is highly scalable, reliable and available. send it as a json with list of compoenets.where for each component as key \"component\" value is compoenet name, give its technology options as key \"technology\" value as list of technologies and then its justifications with key as \"justifications\" values as justification for each technology. The software idea is: "
+prefix ="Provide system design with all the techstack, tools and technologies required and why it is required in brief. also provide reason in brief for your choice making sure the system is highly scalable, reliable and available. send it as a json with list of components. where for each component as key \"component\" value is component name, give its technology options as key \"technology\" value as list of technologies and then its justifications with key as \"justifications\" values as justification for each technology. Also give summary of how the entire system will work and save it as string value in key \"summary\". The software design topic is: "
+
+prefix2 = "Generate a architectural diagram with all the relevant components using mermaid format. Return json format with key as \"design\" and value as the format generated and the given usecase: "
 
 plan_json = None
+
+@app.route('/diagram',methods=['POST'])
+def diagram():
+    data = request.json
+    print(data)
+    prompt = data['diagram']
+    print(prompt)
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo-16k",
+        messages=[
+            {"role": "user", "content": prefix+prompt}
+        ]
+    )
+    plan_json = response['choices'][0]['message']['content']
+
+    return jsonify(plan_json)
 
 @app.route('/design',methods=['POST'])
 def bplan():
