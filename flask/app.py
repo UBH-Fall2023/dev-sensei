@@ -44,10 +44,10 @@ def diagram():
     )
     plan_json = json.loads(response['choices'][0]['message']['content'])
     base64_str = render(plan_json['design'])
-    out = f"\{'design':{base64_str}\}"
+    out = {'design':base64_str}
     print(plan_json)
     
-    return out
+    return json.dumps(out)
 
 @app.route('/design',methods=['POST'])
 def bplan():
