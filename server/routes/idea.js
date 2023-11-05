@@ -19,6 +19,6 @@ router.post(
 );
 
 router.param("userId", userById);
-router.param("orderId", orderById);
+
 
 module.exports = router;
