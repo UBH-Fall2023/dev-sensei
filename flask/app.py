@@ -10,7 +10,8 @@ from PIL import Image
 
 
 openai.organization = "org-hmLTnmUwpQ26fR7nqDqxWwVq"
-openai.api_key = "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"#os.getenv("OPENAI_API_KEY")
+# openai.api_key = "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"#os.getenv("OPENAI_API_KEY")
+openai.api_key= "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"
 
 app = Flask(__name__)
 # json="Give an answer in json format. The json string should have a key Actionable_Steps with value as json object list. Each object in the list is one step and include the step number, category, tasks, team positions , resources."

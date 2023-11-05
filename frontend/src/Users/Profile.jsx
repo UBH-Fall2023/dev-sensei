@@ -36,7 +36,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="h-full bg-gray-200 p-8 overflow-y-scroll w-full">
+    <div className="h-full bg-gray-200 p-8 overflow-y-scroll w-full text-base font-normal">
       <div className="bg-white rounded-lg shadow-xl pb-8">
         <div className="w-full h-[250px]">
           <img

@@ -10,6 +10,7 @@ const Dashboard = () => {
     const [tab, setTab] = useState("dashboard");
     const [isNew, setIsNew] = useState(true);
     const [isFetching, setIsFetching] = useState(false);
+    const [font_size, setFont_size] = useState(16);
     // const [ideaCount, setIdeaCount] = useState(localStorage.getItem("ideaCount")?localStorage.getItem("ideaCount"):0);
     // console.log(localStorage.getItem("isFetching"), localStorage.getItem("ideaCount"));
 
@@ -19,13 +20,13 @@ const Dashboard = () => {
     // };
 
   return (
-    <div className="bg-slate-200 flex h-screen">
+    <div className="bg-slate-200 flex h-screen" style={{fontSize: `${font_size}px`}}>
       {/* <!-- /Sidebar --> */}
       <Sidebar setTab={setTab} tab={tab} />
 
       <div className="flex w-full flex-col">
         {/* <!-- Navbar --> */}
-        <Navbar />
+        <Navbar setFont_size={setFont_size} font_size={font_size} />
         {/* <!-- /Navbar --> */}
 
         {/* <!-- Main --> */}

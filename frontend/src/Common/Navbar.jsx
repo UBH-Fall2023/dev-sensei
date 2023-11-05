@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 
-const Navbar = () => {
+const Navbar = ({font_size, setFont_size}) => {
   const navigate = useNavigate();
 
     const logoutHandler = () => {
@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <header className="relative flex flex-col items-center bg-white px-4 py-4 shadow sm:flex-row md:h-20">
-      <div className="flex w-full flex-col justify-end overflow-hidden transition-all sm:max-h-full sm:flex-row sm:items-center">
+      <div className="flex w-full justify-end overflow-hidden transition-all sm:max-h-full sm:flex-row sm:items-center gap-4">
         {/* <div className="relative ml-10 flex items-center justify-between rounded-md sm:ml-auto">
               <svg
                 className="absolute left-2 block h-5 w-5 text-gray-400"
@@ -98,6 +98,12 @@ const Navbar = () => {
                 </button>
               </li>
             </ul> */}
+
+        <div className="flex gap-2">
+          <button className="border rounded-full px-2" onClick={() => setFont_size(font_size-1)}>-</button>
+          <button onClick={() => setFont_size(16)}>Reset</button>
+          <button className=" border flex rounded-full px-2" onClick={() => setFont_size(font_size+1)}>+</button>
+        </div>
         <button
           className="bg-blue-600 rounded-md px-4 py-2 text-white"
           onClick={logoutHandler}
