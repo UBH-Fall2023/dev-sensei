@@ -8,7 +8,7 @@ const {
 
     orderById,
 
-} = require("../controllers/Idea");
+} = require("../controllers/idea");
 const {ideaById} = require("../controllers/idea");
 
 
