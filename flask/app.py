@@ -2,7 +2,7 @@ import os
 import openai
 from flask import Flask
 from flask import request, jsonify, Response
-
+import json
 openai.organization = "org-hmLTnmUwpQ26fR7nqDqxWwVq"
 openai.api_key = "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"#os.getenv("OPENAI_API_KEY")
 
@@ -16,19 +16,97 @@ plan_json = None
 
 @app.route('/design',methods=['POST'])
 def bplan():
-    data = request.json 
+    data = request.json
+    print(data)
     prompt = data['prompt']
-    print(prompt)     
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo-16k",
-        messages=[
-            {"role": "user", "content": prefix+prompt}
-        ]
+    print(prompt)
+    # response = openai.ChatCompletion.create(
+    #     model="gpt-3.5-turbo-16k",
+    #     messages=[
+    #         {"role": "user", "content": prefix+prompt}
+    #     ]
+    # )
+    # plan_json = response['choices'][0]['message']['content']
+    plan_json =jsonify(
+        {
+            "components": [
+                {
+                    "component": "Frontend",
+                    "technology": [
+                        "ReactJS",
+                        "JavaScript",
+                        "HTML/CSS"
+                    ],
+                    "justifications": [
+                        "ReactJS provides a modern and efficient way to create dynamic user interfaces.",
+                        "JavaScript is necessary for client-side scripting.",
+                        "HTML/CSS are used for creating and styling the user interface."
+                    ]
+                },
+                {
+                    "component": "Backend API",
+                    "technology": [
+                        "Node.js",
+                        "Express.js",
+                        "MongoDB"
+                    ],
+                    "justifications": [
+                        "Node.js enables building scalable and high-performance server-side applications.",
+                        "Express.js is a fast and minimalist web application framework for Node.js.",
+                        "MongoDB is a NoSQL database that provides flexibility and scalability for handling large amounts of user-generated content."
+                    ]
+                },
+                {
+                    "component": "Media Storage",
+                    "technology": [
+                        "Amazon S3",
+                        "Cloudinary"
+                    ],
+                    "justifications": [
+                        "Amazon S3 offers highly scalable and reliable object storage for images and videos.",
+                        "Cloudinary provides media management, optimization, and delivery capabilities, including transcoding, resizing, and transformations."
+                    ]
+                },
+                {
+                    "component": "Push Notifications",
+                    "technology": [
+                        "Firebase Cloud Messaging",
+                        "OneSignal"
+                    ],
+                    "justifications": [
+                        "Firebase Cloud Messaging allows sending push notifications to mobile devices.",
+                        "OneSignal provides a cross-platform solution for push notifications, supporting multiple channels and targeting options."
+                    ]
+                },
+                {
+                    "component": "Real-time Messaging",
+                    "technology": [
+                        "Socket.io",
+                        "Redis"
+                    ],
+                    "justifications": [
+                        "Socket.io enables real-time bidirectional communication between the server and clients.",
+                        "Redis is an in-memory data structure store that can be used as a message broker for pub/sub messaging in a distributed system."
+                    ]
+                },
+                {
+                    "component": "Analytics",
+                    "technology": [
+                        "Google Analytics",
+                        "Amplitude"
+                    ],
+                    "justifications": [
+                        "Google Analytics provides detailed insights and statistics about user behavior and app usage.",
+                        "Amplitude is an analytics platform that helps track user engagement, retention, and user flows."
+                    ]
+                }
+            ]
+        }
     )
-    plan_json = response['choices'][0]['message']['content']
+
     print(plan_json)
-    response = Response(status=200)
-    return response
+    response = Response(status=200, response=plan_json)
+    return plan_json
 
 @app.route('/design',methods=['GET'])
 def getbplan():
@@ -38,13 +116,13 @@ def getbplan():
         return jsonify("{'error':-1")
 
 
- 
+
 # # main driver function
-# if __name__ == '__main__':
- 
-#     # run() method of Flask class runs the application
-#     # on the local development server.
-#     app.run()
+if __name__ == '__main__':
+
+    # run() method of Flask class runs the application
+    # on the local development server.
+    app.run(debug = True)
 
 
 # prompt="By 2026, more than 217 million people in the U.S. will use online food delivery services. Tap into that market and start a meal-prep service to make people’s lives easier and cater to specialized diets (keto, vegan, Whole30)."
