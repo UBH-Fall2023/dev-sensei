@@ -3,6 +3,12 @@ import openai
 from flask import Flask
 from flask import request, jsonify, Response
 import json
+import base64
+
+import requests, io
+from PIL import Image
+
+
 openai.organization = "org-hmLTnmUwpQ26fR7nqDqxWwVq"
 openai.api_key = "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"#os.getenv("OPENAI_API_KEY")
 
@@ -16,6 +22,14 @@ prefix2 = "Generate a architectural diagram with all the relevant components usi
 
 plan_json = None
 
+def render(graph):
+    graphbytes = graph.encode("ascii")
+    base64_bytes = base64.b64encode(graphbytes)
+    base64_string = base64_bytes.decode("ascii")
+    img = io.BytesIO(requests.get('https://mermaid.ink/img/' + base64_string).content)
+    encoded_string = base64.b64encode(by.getvalue())
+    return base64_string
+
 @app.route('/diagram',methods=['POST'])
 def diagram():
     data = request.json
@@ -28,9 +42,12 @@ def diagram():
             {"role": "user", "content": prefix2+prompt}
         ]
     )
-    plan_json = response['choices'][0]['message']['content']
+    plan_json = json.loads(response['choices'][0]['message']['content'])
+    base64_str = render(plan_json)
+    out = f"\{'design':{base64_str}\}"
     print(plan_json)
-    return jsonify(plan_json)
+    
+    return out
 
 @app.route('/design',methods=['POST'])
 def bplan():
