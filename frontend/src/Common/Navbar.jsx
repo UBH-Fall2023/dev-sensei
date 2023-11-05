@@ -1,8 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
     const logoutHandler = () => {
-        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        navigate("/");
     };
 
   return (

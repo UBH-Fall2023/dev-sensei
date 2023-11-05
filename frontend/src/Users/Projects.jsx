@@ -30,12 +30,13 @@ const Projects = ({ setIsNew }) => {
       .then((response) => {
         console.log(JSON.parse(JSON.stringify(response.data)));
         setProjects(response.data);
+        if(response.data > 0) {
+          setToggleProject(false);
+        }
       })
       .catch((error) => {
         alert(error);
       });
-
-    setToggleProject(false);
   }, []);
 
   return !showdetails ? (
@@ -70,12 +71,11 @@ const Projects = ({ setIsNew }) => {
                 className=" px-4 mx-2 mt-10 flex flex-row justify-between overflow-hidden rounded-lg border py-8 text-gray-700 shadow transition hover:shadow-lg sm:mx-auto bg-white"
               >
                 <div className="col-span-11 flex flex-col pr-8 text-left sm:pl-4 flex-[5]">
-                  <a
-                    href="#"
+                  <p
                     className="mb-3 overflow-hidden pr-7 text-lg font-semibold sm:text-xl"
                   >
                     {item.name}
-                  </a>
+                  </p>
                   <p className="overflow-hidden pr-7 text-sm">{item.idea}</p>
                 </div>
                 <button className="w-30 h-10 bg-indigo-600 text-white px-2 py-2 flex-[1] items-center text-center">Open Plan</button>

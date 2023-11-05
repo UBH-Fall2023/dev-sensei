@@ -90,7 +90,7 @@ const Prompt = ({ id }) => {
       .catch((error) => {
         alert(error);
       });
-  }, []);
+  }, [id]);
 
   return (
     <div className="h-full overflow-hidden pl-10">
@@ -100,11 +100,11 @@ const Prompt = ({ id }) => {
       >
         {/* <!-- Put your content inside of the <main/> tag --> */}
         <div className="flex flex-row justify-between w-full">
-        <h1 className="text-2xl font-black text-gray-800">Your Startup plan</h1>
+        <h1 className="text-2xl font-black text-gray-800">Your learning starting roadmap</h1>
         <button className="underline text-blue-600" onClick={() => window.location.reload()}>Go back</button>
         </div>
         <p className="mb-6 text-gray-600">
-          Steps to launch your startup from 0 to 1
+          Steps to start your roadmap
         </p>
         <div className="flex flex-wrap gap-x-4 gap-y-8">
           {/* <div className="h-56 w-72 rounded-xl bg-white p-10 shadow-md"></div>

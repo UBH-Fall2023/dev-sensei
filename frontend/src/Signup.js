@@ -4,10 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [person, setPerson] = useState({
-    isEmployer: false,
-    isStudent: false,
-  });
+  // const [person, setPerson] = useState({
+  //   isEmployer: false,
+  //   isStudent: false,
+  // });
 
   const [formData, setFormData] = useState({
     username: "",
@@ -17,18 +17,18 @@ const Signup = () => {
 
   const inputChangeHandler = (event) => {
     const { name, value } = event.target;
-    if (name === "isStudent") {
-      setPerson({
-        isEmployer: false,
-        isStudent: true,
-      });
-    }
-    if (name === "isEmployer") {
-      setPerson({
-        isEmployer: true,
-        isStudent: false,
-      });
-    }
+    // if (name === "isStudent") {
+    //   setPerson({
+    //     isEmployer: false,
+    //     isStudent: true,
+    //   });
+    // }
+    // if (name === "isEmployer") {
+    //   setPerson({
+    //     isEmployer: true,
+    //     isStudent: false,
+    //   });
+    // }
 
     setFormData((prevState) => ({
       ...prevState,
@@ -38,29 +38,39 @@ const Signup = () => {
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    const form_data = new FormData();
-    form_data.append("username", formData.username);
-    form_data.append("email", formData.email);
-    form_data.append("password", formData.password);
+    // const form_data = new FormData();
+    // form_data.append("username", formData.username);
+    // form_data.append("email", formData.email);
+    // form_data.append("password", formData.password);
 
     // for(const x of form_data.entries()) {
     //   console.log(x[0], x[1]);
     // }
 
+    const form_data = {
+      name: formData.username,
+      email: formData.email,
+      password: formData.password,
+    };
+
     localStorage.setItem("user", formData.username);
+    console.log(form_data);
 
     axios
-      .post(`${process.env.SERVER_URL}/auth/register`, form_data, {
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/signup`, JSON.stringify(form_data), {
         headers: {
-          "Content-Type": "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
       })
       .then((response) => {
+        console.log(response);
         navigate("/signin");
       })
       .catch((error) => {
-        // console.log(error);
-        alert(error.response.data.email[0]);
+        console.log(error);
+        // alert(error.response.data.email[0]);
+        alert(error.response);
       });
   };
 

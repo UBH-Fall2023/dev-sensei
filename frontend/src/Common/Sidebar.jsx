@@ -36,7 +36,7 @@ const Sidebar = () => {
                 U
               </span>
               <span className="text-xl">rbane</span> */}
-            <img src="/Logo.png" className="w-40 h-20 object-cover" />
+            <img src="/Logo.png" alt="" className="w-40 h-20 object-cover" />
           </span>
         </div>
         <ul className="mt-8 space-y-3 md:mt-20">
@@ -79,7 +79,7 @@ const Sidebar = () => {
             </button>
           </li>
           {/* Job postings tab */}
-          <li className="relative">
+          {/* <li className="relative">
             <button
               className="focus:bg-slate-600 hover:bg-slate-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none"
               onClick={() => setTab("jobPostings")}
@@ -100,7 +100,7 @@ const Sidebar = () => {
                   />
                 </svg>
               </span>
-              {/* <span className="">Job Postings</span>
+              <span className="">Job Postings</span>
               {tab === "jobPostings" && (
                 <svg
                   className="text-slate-200 absolute -right-1 -top-1/2 z-10 hidden h-32 w-8 md:block"
@@ -114,9 +114,9 @@ const Sidebar = () => {
                     d="M 499.289 57.696 C 499.289 171.989 399.349 196.304 399.349 257.333 C 399.349 322.485 499.512 354.485 499.512 458.767 C 499.512 483.155 499.289 57.696 499.289 57.696 Z"
                   />
                 </svg>
-              )} */}
+              )}
             </button>
-          </li>
+          </li> */}
           {/* Profile tab */}
           <li className="relative">
             <button

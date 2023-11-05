@@ -5,7 +5,7 @@ import Sidebar from "../Common/Sidebar";
 import Navbar from "../Common/Navbar";
 
 const Dashboard = () => {
-    const [tab, setTab] = useState("dashboard");
+    const [tab] = useState("dashboard");
     const [isNew, setIsNew] = useState(true);
 
     // const logoutHandler = () => {
