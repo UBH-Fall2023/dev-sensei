@@ -41,7 +41,7 @@ const Sidebar = ({ tab, setTab }) => {
                 U
               </span>
               <span className="text-xl">rbane</span> */}
-            <img src="/Logo2.png" alt="" className="w-full object-fill border rounded-full" />
+            <img src="https://business-product-images.s3.us-east-2.amazonaws.com/image001.png" alt="" className="w-full object-fill border rounded-full" />
           </span>
         </div>
         <ul className="mt-8 space-y-3 md:mt-20">
