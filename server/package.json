@@ -4,8 +4,7 @@
   "scripts": {
     "build": "npm i",
     "start": "NODE_ENV=production node app.js ",
-    "dev": "NODE_ENV=staging app.js ",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "dev": "NODE_ENV=staging app.js "
   },
   "keywords": [],
   "author": "Devsensei",
