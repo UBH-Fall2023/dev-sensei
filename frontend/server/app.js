@@ -30,7 +30,7 @@ app.use(cookieParser());
 app.use(cors());
 
 // routes middleware
-app.use('/api', authRoutes);
+app.use('api', authRoutes);
 
 
 const port = process.env.PORT || 8000;
