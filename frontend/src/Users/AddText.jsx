@@ -95,11 +95,12 @@ const AddText = ({ setIsNew }) => {
       </div>
     </form>
   ) : (
-    <div className="">
+    <div className=" text-center w-full mx-auto">
       <h1>
         <strong>Thank you for your submission!</strong>
       </h1>
       <p>We will get back to you shortly.</p>
+      <p>Refresh the page.</p>
       {/* <p>Refresh the page to view all your projects.</p> */}
     </div>
   );
