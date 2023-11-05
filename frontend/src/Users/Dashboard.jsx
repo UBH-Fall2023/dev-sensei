@@ -7,6 +7,7 @@ import Navbar from "../Common/Navbar";
 const Dashboard = () => {
     const [tab] = useState("dashboard");
     const [isNew, setIsNew] = useState(true);
+    const [isFetching, setIsFetching] = useState(false);
 
     // const logoutHandler = () => {
     //     localStorage.removeItem('token');
@@ -18,13 +19,14 @@ const Dashboard = () => {
       {/* <!-- /Sidebar --> */}
       <Sidebar />
 
-      <div className="flex h-full w-full flex-col">
+      <div className="flex w-full flex-col">
         {/* <!-- Navbar --> */}
         <Navbar />
         {/* <!-- /Navbar --> */}
 
         {/* <!-- Main --> */}
-        {!isNew && tab==="dashboard" && <Projects setIsNew={setIsNew} />}
+        {isFetching && <p className=" text-red-700 text-center">Hang tight! We are working on your prompt.</p>}
+        {tab==="dashboard" && <Projects setIsNew={setIsNew} setIsFetching={setIsFetching} />}
         {/* <!-- /Main --> */}
         {isNew && tab==="dashboard" && <AddText setIsNew={setIsNew.bind(null, null)} />}
         {/* {tab==="profile" && <EmployeeProfile />} */}

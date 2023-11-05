@@ -3,89 +3,95 @@ import React, { useEffect, useState } from "react";
 
 const Prompt = ({ id }) => {
   const [prompt, setPrompt] = useState([]);
-  const [position, setPosition] = useState({
-    step_number: "",
-    positions: [{
-        index: "",
-        headline: "",
-        description: "",
-    }],
-  });
+  // const [position, setPosition] = useState({
+  //   step_number: "",
+  //   positions: [{
+  //       index: "",
+  //       headline: "",
+  //       description: "",
+  //   }],
+  // });
 
-  const changePositionHandler = (step_number, pos, posIdx) => {
-    console.log(step_number, pos,posIdx);
-    if(step_number===position.step_number) {
-        const removePositions = position.positions.filter((item) => item.index===posIdx);
-        if(removePositions.length > 0) {
-            const newPositions = position.positions.filter((item) => item.index!==posIdx);
-            setPosition((prevState) => ({
-                ...prevState,
-                positions: newPositions,
-            }))
-        }
-        else {
-            const newPosition = {
-                index: posIdx,
-                headline: pos.position,
-                description: pos.description,
-            }
-            let newPositions = [...position.positions];
-            newPositions.push(newPosition);
-            setPosition((prevState) => ({
-                ...prevState,
-                positions: newPositions,
-            }));
-        }
-    }
-    else {
-        const newPosition = {
-            index: posIdx,
-            headline: pos.position,
-            description: pos.description,
-        }
-        let newPositions= [];
-        newPositions.push(newPosition);
-        setPosition({
-            step_number: step_number,
-            positions: [...newPositions],
-        });
-    }
-  };
+  // const changePositionHandler = (step_number, pos, posIdx) => {
+  //   console.log(step_number, pos,posIdx);
+  //   if(step_number===position.step_number) {
+  //       const removePositions = position.positions.filter((item) => item.index===posIdx);
+  //       if(removePositions.length > 0) {
+  //           const newPositions = position.positions.filter((item) => item.index!==posIdx);
+  //           setPosition((prevState) => ({
+  //               ...prevState,
+  //               positions: newPositions,
+  //           }))
+  //       }
+  //       else {
+  //           const newPosition = {
+  //               index: posIdx,
+  //               headline: pos.position,
+  //               description: pos.description,
+  //           }
+  //           let newPositions = [...position.positions];
+  //           newPositions.push(newPosition);
+  //           setPosition((prevState) => ({
+  //               ...prevState,
+  //               positions: newPositions,
+  //           }));
+  //       }
+  //   }
+  //   else {
+  //       const newPosition = {
+  //           index: posIdx,
+  //           headline: pos.position,
+  //           description: pos.description,
+  //       }
+  //       let newPositions= [];
+  //       newPositions.push(newPosition);
+  //       setPosition({
+  //           step_number: step_number,
+  //           positions: [...newPositions],
+  //       });
+  //   }
+  // };
 
-  const postJobHandler = (item) => {
-    console.log(item);
-    if(item.step_number === position.step_number) {
-        position.positions.map(async(pos) => {
-            let form_data = new FormData();
-            form_data.append('headline', pos.headline);
-            form_data.append("description", pos.description);
+  // const postJobHandler = (item) => {
+  //   console.log(item);
+  //   if(item.step_number === position.step_number) {
+  //       position.positions.map(async(pos) => {
+  //           let form_data = new FormData();
+  //           form_data.append('headline', pos.headline);
+  //           form_data.append("description", pos.description);
 
-            // for(const x of form_data.entries()) {
-            //     console.log(`${x[0]} : ${x[1]}`);
-            // }
-            await axios.post(`${process.env.SERVER_URL}/employer/create_job`, form_data, {headers: {
-                'Authorization': `Token ${localStorage.getItem("token")}`,
-            }}).then((response) => {
-                alert("Job posted successfully");
-            }).catch((error) => {
-                alert(`Error posting job, ${error}`);
-            });
-        })
-    }
-  };
+  //           // for(const x of form_data.entries()) {
+  //           //     console.log(`${x[0]} : ${x[1]}`);
+  //           // }
+  //           await axios.post(`${process.env.SERVER_URL}/employer/create_job`, form_data, {headers: {
+  //               'Authorization': `Token ${localStorage.getItem("token")}`,
+  //           }}).then((response) => {
+  //               alert("Job posted successfully");
+  //           }).catch((error) => {
+  //               alert(`Error posting job, ${error}`);
+  //           });
+  //       })
+  //   }
+  // };
 
   useEffect(() => {
     axios
-      .get(`${process.env.SERVER_URL}/employer/get_project_details/${id}`, {
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/idea`, {
+        params: {
+          idea_id: id,
+        },
         headers: {
-          Authorization: `Token ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("user")).token}`,
         },
       })
       .then((response) => {
-        const obj = JSON.parse(JSON.parse(response.data.content));
-        // console.log(typeof((obj)));
-        console.log(obj.steps);
-        setPrompt(obj.steps);
+        console.log(response.data.response.components);
+        const obj = response.data.response.components;
+        console.log(obj);
+        console.log(typeof((obj)));
+        console.log(obj);
+        setPrompt(obj);
       })
       .catch((error) => {
         alert(error);
@@ -112,22 +118,28 @@ const Prompt = ({ id }) => {
           {/* <div className="h-56 w-full rounded-xl bg-white p-10 shadow-md"></div> */}
           {/* <div className="h-56 w-full rounded-xl bg-white p-10 shadow-md"></div> */}
           {prompt.map((item, index) => (
-            <div key={item.step_number} className="h-fit w-full rounded-xl bg-white p-10 shadow-md flex flex-col gap-4">
+            <div key={index} className="h-fit w-full rounded-xl bg-white p-10 shadow-md flex flex-col gap-4">
               <div className="flex flex-row gap-40">
-                <h1 className="w-20 font-bold">Category</h1>
-                <p className="font-semibold">{item.category}</p>
+                <h1 className="w-20 font-bold">Component</h1>
+                <p className="font-semibold">{item.component}</p>
               </div>
               <div className="flex flex-row gap-40">
-                <h1 className="w-20 font-bold">Tasks</h1>
+                <h1 className="w-20 font-bold">Technology</h1>
                 <ul>
-                  {item.tasks.map((task, index) => (
+                  {item.technology.map((task, index) => (
                     <li key={index}>{task}</li>
                   ))}
                 </ul>
               </div>
               <div className="flex flex-row gap-40">
-                <h1 className="w-20 font-bold">Positions</h1>
-                <div className="flex flex-row justify-between w-full">
+                <h1 className="w-20 font-bold">Justifications</h1>
+                <ul>
+                  {item.justifications.map((task, index) => (
+                    <li key={index}>{task}</li>
+                  ))}
+                </ul>
+              </div>
+                {/* <div className="flex flex-row justify-between w-full">
                   <div className="flex flex-col gap-2">
                     {item.team_positions.map((pos, index) => (
                       <div key={index}>
@@ -165,24 +177,29 @@ const Prompt = ({ id }) => {
                     Post
                   </button>
                 </div>
-              </div>
-              <div className="flex flex-row gap-40">
+              </div> */}
+              {item.resources && <div className="flex flex-row gap-40">
                 <h1 className="w-20 font-bold">Resources</h1>
                 <div className="flex flex-col gap-2">
                   {item.resources.map((rsr, index) => (
-                    <div key={index} className="flex flex-col">
-                      <div className="flex flex-row gap-2">
-                        <h1 className="w-40">Organization:</h1>
-                        <p>{rsr.resource_name}</p>
-                      </div>
-                      <div className="flex flex-row gap-2">
-                        <h1 className="w-40">Website:</h1>
-                        <p>{rsr.website}</p>
-                      </div>
+                    <div key={index} className="flex gap-2">
+                      <p>{rsr.split(':')[0]}:</p>
+                      <p>
+                        <a href={`${rsr.split(':')[1]}`} target="_blank" rel="noreferrer">{rsr.split(':')[1]}</a>
+                      </p>
+                    {/* // <div key={index} className="flex flex-row"> */}
+                      {/* <div className="flex flex-row gap-2"> */}
+                        {/* <p className="w-40">Organization:</p> */}
+                        {/* <p>{rsr.resource_name}</p> */}
+                      {/* </div> */}
+                      {/* <div className="flex flex-row gap-2"> */}
+                        {/* <h1 className="w-40">Website:</h1> */}
+                        {/* <p>{rsr.website}</p> */}
+                      {/* </div> */}
                     </div>
                   ))}
                 </div>
-              </div>
+              </div>}
             </div>
           ))}
         </div>
